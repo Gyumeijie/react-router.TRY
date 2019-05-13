@@ -1,14 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const TopicList = ({ match }) => {
-  console.log(match.url)
+const TopicList = ({ match, history }) => {
+  const fireHistory = () => {
+    return history.push(`${match.url}/Topic1`);
+  };
   return (
     <div>
       <h3>Topic List View</h3>
       <ul>
         <li>
-          <Link to={`${match.url}/Topic1`}>Topic 1</Link>
+          <button onClick={fireHistory}>Topic 1 </button>
         </li>
         <li>
           <Link to={`${match.url}/Topic2`}>Topic 2</Link>
