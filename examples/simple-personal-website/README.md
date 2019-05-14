@@ -16,11 +16,11 @@ Every **view**, **component**, or whatever that’s wrapped by Router has these 
 
 - **path**: (string), the path pattern used to match. Useful for building nested routes. We’ll take a look at this later in one of the next articles.
 
-- **url**: (string), the matched portion of the URL. Useful for building nested links.
+- **url**: (string), the matched portion of the URL. Useful for building **nested links**.
 
 ### Location
 
-> The `location` object represents where the app is now, where you want it to go, or even where it was.
+> The `location` object represents where the app is **now**, where you want it to go, or even where it was.
 ```js
 location: {
   hash: "";
@@ -42,11 +42,14 @@ const locationX = {
 - `<Link to={locationX} />`
 - `history.push(locationX)`
 
+It’s also found on `history.location` but you shouldn’t use that because it’s **mutable**.
+
+
 ### History
-> The `history` object allows you to manage and handle the browser history inside your **views** or **components**.
+
+> The `history` object allows you to manage and handle the **browser history** inside your **views** or **components**.
 
 - **length**: (number), the number of entries in the history stack
-
 - **action**: (string), the current action (PUSH, REPLACE or POP)
 - **location**: (object), the current location
 - **push(path, [state])**: (function), pushes a new entry onto the history stack
@@ -57,3 +60,6 @@ const locationX = {
 - **block(prompt)**: (function), prevents navigation
 
 
+
+## Resources
+- [reacttrainning] (https://reacttraining.com/react-router/web/api/Route)
