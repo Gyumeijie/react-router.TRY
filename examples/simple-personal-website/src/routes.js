@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Switch } from "react-router-dom";
 
 import { Home } from "./views/Home";
 import { About } from "./views/About";
@@ -8,32 +8,56 @@ import { NoMatch } from "./views/NoMatch";
 import { BlogList } from "./views/BlogList";
 import { NavBar } from "./components/NavBar";
 import { BlogContent } from "./components/BlogContent";
+import { TopicDetail } from "./components/TopicDetail";
+
+import MakeRoutesWithSubRoutes from "./makeRoutesWithSubRoutes";
+
+const routes = [
+  {
+    path: "/Home",
+    component: Home,
+  },
+  {
+    path: "/About",
+    component: About,
+  },
+  {
+    path: "/Topics",
+    component: TopicList,
+    routes: [
+      {
+        path: "/Topics/:topicId",
+        component: TopicDetail
+      }
+    ]
+  },
+  {
+    path: "/Blogs",
+    component: BlogList,
+    routes: [
+      {
+        path: "/Blogs/:blogId",
+        component: BlogContent
+      }
+    ]
+  },
+  {
+    /*The `:WhereTheHeckIsThat` is a variable because it has the colon before it.
+     * And must be placed in the end.
+     */
+    path: "/:WhereTheHeckIsThat",
+    component: NoMatch
+  }
+];
 
 export const Routes = () => {
   return (
     <div>
       <NavBar />
-      {/*<Switch> is unique in that it renders a route exclusively*/}
       <Switch>
-        {/*Bunch of <Route>s, every <Route> that matches the location
-         renders inclusively. May cause maximum update depth exceeded.*/}
-
-        <Route exact path="/Home" component={Home} />
-        <Route exact path="/">
-          <Redirect to="/Home" />
-        </Route>
-
-        {/*Its most basic responsibility is to render some UI when a location matches
-         the route’s path. Corresponding UI will be rendered under <NavBar>.*/}
-        <Route exact path="/About" component={About} />
-        <Route exact path="/Topics" component={TopicList} />
-        <Route exact path="/Blogs" component={BlogList} />
-
-        {/*dynamic segments of the path: topicId blogId*/}
-        <Route path="/Topics/:topicId" component={TopicList} />
-        <Route path="/Blogs/:blogId" component={BlogContent} />
-
-        <Route component={NoMatch} />
+        {routes.map(route => (
+          <MakeRoutesWithSubRoutes {...route} />
+        ))}
       </Switch>
     </div>
   );
